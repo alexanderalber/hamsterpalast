@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hamsterpalast</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 system-ui, sans-serif; color: #2b2620; background: #f6f2ea; }
+  main { max-width: 1100px; margin: 0 auto; padding: 20px 16px 40px; }
+  h1 { font-size: 1.6em; margin: 0 0 4px; }
+  p { margin: 6px 0; }
+  .view { position: relative; margin: 14px 0; border-radius: 6px; overflow: hidden;
+          background: #dfe7ec; height: min(70vh, 620px); touch-action: none; }
+  canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+  canvas:active { cursor: grabbing; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; }
+  .controls label { display: inline-flex; gap: 6px; align-items: center; }
+  button { font: inherit; padding: 3px 10px; border: 1px solid #a99880; background: #fff; border-radius: 4px; cursor: pointer; }
+  .hint { position: absolute; left: 10px; bottom: 8px; font-size: 12px; color: #4a5560; pointer-events: none; }
+  .err { padding: 40px; text-align: center; }
+  ul { padding-left: 20px; }
+  table { border-collapse: collapse; margin: 6px 0; }
+  td { padding: 2px 14px 2px 0; vertical-align: top; }
+  .sw { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; }
+  img.plan { width: 100%; max-width: 900px; background: #fff; border-radius: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Hamsterpalast</h1>
+  <p>Mehrkammerhaus als Burg zum Lasern: Haupthaus mit drei Kammern und ein Turm als Schlafkammer,
+     ohne Boden, Deckel abnehmbar. Alles aus <span id="mat">4</span>&nbsp;mm Sperrholz.</p>
+
+  <div class="view" id="view">
+    <canvas id="gl"></canvas>
+    <div class="hint">Ziehen: drehen &middot; Rad/Pinch: zoomen &middot; Rechts ziehen: verschieben</div>
+  </div>
+  <div class="controls">
+    <label>Explosion <input type="range" id="explode" min="0" max="1" step="0.01" value="0"></label>
+    <label><input type="checkbox" id="lids"> Deckel abheben</label>
+    <label><input type="checkbox" id="bricks" checked> Gravur zeigen</label>
+    <button id="reset">Ansicht zurücksetzen</button>
+  </div>
+
+  <h2>Dateien</h2>
+  <ul id="files"></ul>
+  <table>
+    <tr><td><span class="sw" style="background:#f00"></span> rot</td><td>schneiden</td></tr>
+    <tr><td><span class="sw" style="background:#00f"></span> blau</td><td>ritzen/gravieren, schwach und schnell</td></tr>
+    <tr><td><span class="sw" style="background:#0a0"></span> grün</td><td>nur Beschriftung, in der Lasersoftware ausschalten</td></tr>
+  </table>
+  <p>Vor dem Schneiden Materialstärke messen und mit den drei Probe-Teilen die Passung prüfen.
+     Andere Stärke, Schnittbreite oder Plattengröße: Parameter oben in
+     <code>hamsterpalast.py</code> ändern und neu erzeugen. Details im
+     <a href="https://github.com/alexanderalber/hamsterpalast">Repository</a>.</p>
+
+  <h2>Ansicht und Grundriss</h2>
+  <img class="plan" src="svg/vorschau.svg" alt="Frontansicht und Grundriss">
+</main>
+<script src="model.js"></script>
+<script src="viewer.js"></script>
+</body>
+</html>
